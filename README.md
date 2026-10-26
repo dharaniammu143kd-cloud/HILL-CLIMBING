@@ -26,6 +26,63 @@ Feedback is provided in terms of heuristic function
 </li>
 </ol>
 
+# PROGRAM:
+```
+import random
+import string
+
+def generate_random_solution(answer):
+    length = len(answer)
+    return [random.choice(string.printable) for _ in range(length)]
+
+def evaluate(solution, answer):
+    print("Current solution:", "".join(solution))
+    target = list(answer)
+    diff = 0
+
+    for i in range(len(target)):
+        s = solution[i]
+        t = target[i]
+        diff += abs(ord(s) - ord(t))
+
+    return diff
+
+def mutate_solution(solution):
+    ind = random.randint(0, len(solution) - 1)
+    solution[ind] = random.choice(string.printable)
+    return solution
+
+def SimpleHillClimbing():
+    answer = "Artificial Intelligence"
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+    max_iterations = 1000
+    iterations = 0
+
+    while True:
+        print("Score:", best_score, "Solution:", "".join(best))
+
+        if best_score == 0:
+            break
+      if iterations >= max_iterations:
+            print("Max iterations reached.")
+            break
+
+        new_solution = mutate_solution(list(best))
+        score = evaluate(new_solution, answer)
+
+        if score < best_score:
+            best = new_solution
+            best_score = score
+
+        iterations += 1
+
+SimpleHillClimbing()
+```
+# OUTPUT:
+<img width="430" height="263" alt="image" src="https://github.com/user-attachments/assets/971efda0-4d24-4a8d-bf69-c7dcacf5bb74" />
+
+
 </p>
 <hr>
 <h3> Steps Applied:</h3>
